@@ -1,68 +1,73 @@
 
+//declare variables
 
-//when game starts
-// function initializeGame() {
-//     var wins = 0
-//     var guessRemaining= 8
-//     var lettersGuessed = [];
-//     var answerBlanks = [];
-
-
-
-
+var wins = 0
+var losses = 0
+var guessesMade = []
+var guessesLeft = 8
 
 //list of words to choose from
 var words = ["beach", "sand", "ocean", "waves", "fish", "sun", "swimsuit", "towel", "seashell"]
 
 //choose random word from words array
-var word = words[Math.floor(Math.random() * words.length)];
+var randomWord = words[Math.floor(Math.random() * words.length)];
 
 
 //make empty word blanks
-var answerBlanks = [_];
-for (var i = 0; i< word.length; i++){
-    answerBlank[i]= "_";
-    document.getElementById("currentword").innerHTML = answerBlanks;
+var answerBlanks = [];
+for (var i = 0; i < randomWord.length; i++) {
+    answerBlanks[i] = ("_");
+  //  document.getElementById("currentword").innerHTML = answerBlanks;
 }
 
+// define reset function
+function reset() {
+    guessesMade = []
+    document.getElementById("lettersguessed").innerHTML = guessesMade;
+    guessesLeft = 8
+    document.getElementById("guessesremain").innerHTML = guessesLeft;
+    randomWord = words[Math.floor(Math.random() * words.length)];
+    for (var i = 0; i < randomWord.length; i++) {
+        answerBlanks[i] = "_";
+        document.getElementById("currentword").innerHTML = answerBlanks;
+    }
+}
 
-    //function below starts when first letter is typed
-document.onkeyup = function(event){
+//when user clicks on a letter
+document.onkeyup = function (event) {
+    var userGuess = event.key.toLowerCase();
+    console.log("Guess: " + userGuess);
+    console.log("Correct word: " + randomWord);
 
-    //determine which key was pressed
-    var userGuess = event.key;
-    var remainingGuesses=8
+    for (var j = 0; j < randomWord.length; j++) {
+        if(randomWord[j] === userGuess) {
+            answerBlanks[j] = userGuess;
+        }
+         else if (randomWord[j] !== userGuess) {
+            guessesMade.push(userGuess);
+            document.getElementById("lettersguessed").innerHTML = guessesMade;
+            guessesLeft--;
+            document.getElementById("guessesremain").innerHTML = guessesLeft;
+            if (guessesLeft === 0) {
+                losses++;
+                document.getElementById("losses").innerHTML = losses;
+                console.log("You LOSE!");
+                reset();
+            }
+        }
+    }
 
-    // for (var j = 0; j < word.length; j++) {
-        // If (word[j] === userGuess) {
-        //  answerBlanks[j] = userGuess;
-        //     }
-        //  else (word[j] !== userGuess){
-        //     //then put wrong user guess in guessed letters
-        //     }
+            // //Game over
+            // function gameOver() {
+            //     if (letterBlanks.indexOf("_") === -1) {
+            //         wins++;
+            //         alert("YA YOU WON!");
+            //     } else {
+            //         losses++;
+            //         alert("SO SAD... YOU LOST")
+            //     }
+
+
     
-
-
-
-    //During Game
-   
-
-
-//Game over
-function gameOver() {
-	if (letterBlanks.indexOf("_") === -1) {
-		wins++;
-		alert("YA YOU WON!");
-	} else {
-		losses++;
-		alert("SO SAD... YOU LOST")
-	}
-
-
-//var totalWins = document.getElementById ("wins")
-// var remainingGuesses = document.getElementById ("guessesremain")
-// var guessingWord = document.getElementById ("currentword")
-// var guessedLetters = document.getElementById ("lettersguessed")
-
-}
+            // }
 }
