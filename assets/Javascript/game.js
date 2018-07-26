@@ -15,7 +15,7 @@ var randomWord = words[Math.floor(Math.random() * words.length)];
 //make empty word blanks
 var answerBlanks = [];
 for (var i = 0; i < randomWord.length; i++) {
-    answerBlanks[i] = ("_");
+    answerBlanks[i] = (" _ ");
 }
 document.getElementById("currentword").textContent = answerBlanks.join("");
 
@@ -46,47 +46,50 @@ document.onkeyup = function (event) {
     console.log("Guess: " + userGuess);
     console.log("Correct word: " + randomWord);
 
-    guessesMade.push(userGuess);
-    document.getElementById("lettersguessed").innerHTML = guessesMade;
-
     // alert if not a letter
-    if (!letterArray.includes(guess)) {
-         console.log("User pressed: " + userGuess + " Not a letter.");
+    if (!letterArray.includes(userGuess)) {
+        console.log("User pressed: " + userGuess + " Not a letter.");
         alert("Please press a letter, not a special key.");
-        return;
     }
 
     // alert if already picked that letter
     if (guessesMade.includes(userGuess)) {
         console.log(userGuess + " was already guessed.");
-        alert("You already guessed " + userGuess + ". Pick another letter.")
-        return;
+        alert("You already guessed " + userGuess + ". Pick another letter.");
     }
 
 
-    //update the answerBlanks for current word  
+    //update the answerBlanks if needed for current word 
+    var wordChanged;
     for (var j = 0; j < randomWord.length; j++) {
         if (randomWord[j] === userGuess) {
             updateanswerBlanks(userGuess, j);
+            wordChanged = true;
+        }
+        else if (!wordChanged) {
+            guessesMade.push(userGuess);
+            document.getElementById("lettersguessed").innerHTML = guessesMade;
+            guessesLeft--;
+            document.getElementById("guessesremain").innerHTML = guessesLeft;
         }
     }
+
+
     if (!answerBlanks.includes("_")) {
         wins++;
         document.getElementById("wins").innerHTML = wins;
         console.log("You WIN!");
     }
 
-    else if (randomWord[j] !== userGuess) {
-        guessesLeft--;
-        document.getElementById("guessesremain").innerHTML = guessesLeft;
-        if (guessesLeft === 0) {
-            losses++;
-            document.getElementById("losses").innerHTML = losses;
-            console.log("You LOSE!");
-            reset()
-        }
+
+    if (guessesLeft === 0) {
+        losses++;
+        document.getElementById("losses").innerHTML = losses;
+        console.log("You LOSE!");
+        reset()
     }
 }
+
 
 
 
