@@ -1,5 +1,83 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
+*{
+  box-sizing: border-box ;
+  margin: 0;
+  padding: 0;
+}
+
+
+header{
+   font-size: 72px;
+   background: yellow;
+   color:teal;
+   font-family: fantasy;
+   padding: 20px;
+   padding-top: 38px;
+   font-weight: bold;
+   text-align: center;
+   clear: both;
+}
+
+h1{
+   font-size: 16px;
+   color: white;
+   font-family: fantasy;
+   padding: 20px;
+   text-align: center;
+   border-color: white;
+   clear: both;
+}
+
+p{
+   font-size: 24px;
+   color: white;
+   font-family: fantasy;
+   padding: 20px;
+   padding-top: 0;
+   text-align: center;
+   clear: both;
+}
+
+.box1{
+  background-color: teal;
+  margin-left: 20%;
+  margin-right: 25%;
+  border: solid 5px yellow;
+  position:relative;
+  bottom: -40px;
+  padding: 20px;
+  width: 500px;
+}
+
+.box2{
+  background-color: teal;
+  margin-left: 73%;
+  margin-right: 3%;
+  border: solid 5px yellow;
+  position:relative;
+  left: -131px;
+  bottom: 140px;
+  padding: 30px;
+  padding-bottom: 24px;
+}
+.box3{
+  background-color: teal;
+  margin-left: 20%;
+  margin-right: 25%;
+  border: solid 5px yellow;
+  position:relative;
+  top: -222px;
+  left: -24px;
+  padding: 30px;
+  height: 200px;
+  width: 550px;
+
+}
+
+
+
+body{
+   background-image: url("https://media0.giphy.com/media/3og0Ix8tq5zyKybM9a/200.webp"
+   );
+}
+/*
+"http://static.facegfx.com/vector/2013/10/18/facegfx-vector-sunny-beach-design-vector-background-05.jpg"
