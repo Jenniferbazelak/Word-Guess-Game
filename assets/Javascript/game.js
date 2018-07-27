@@ -17,26 +17,29 @@ var answerBlanks = [];
 for (var i = 0; i < randomWord.length; i++) {
     answerBlanks[i] = (" _ ");
 }
-document.getElementById("currentword").textContent = answerBlanks.join("");
+document.getElementById("currentword").textContent = answerBlanks.join(" ");
 
 
 // define reset function
 function reset() {
-    guessesMade = []
+    guessesMade = [];
+    answerBlanks = [];
+    document.getElementById("currentword").innerHTML = answerBlanks;
     document.getElementById("lettersguessed").innerHTML = guessesMade;
     guessesLeft = 8
     document.getElementById("guessesremain").innerHTML = guessesLeft;
     randomWord = words[Math.floor(Math.random() * words.length)];
     for (var i = 0; i < randomWord.length; i++) {
-        answerBlanks[i] = "_";
-        document.getElementById("currentword").innerHTML = answerBlanks.join("");
+        answerBlanks[i] = " _ ";
+        document.getElementById("currentword").innerHTML = answerBlanks.join(" ");
     }
 }
 
 //define answerBlank function
 
 function updateanswerBlanks(l, index) {
-    answerBlanks.splice(index, 1, l);
+    answerBlanks [index]=l;
+    document.getElementById("currentword").innerHTML = answerBlanks.join(" ");
 }
 
 //GAME STARTS HERE
@@ -60,34 +63,37 @@ document.onkeyup = function (event) {
 
 
     //update the answerBlanks if needed for current word 
-    var wordChanged;
-    for (var j = 0; j < randomWord.length; j++) {
-        if (randomWord[j] === userGuess) {
-            updateanswerBlanks(userGuess, j);
-            wordChanged = true;
-        }
-        else if (!wordChanged) {
-            guessesMade.push(userGuess);
-            document.getElementById("lettersguessed").innerHTML = guessesMade;
-            guessesLeft--;
-            document.getElementById("guessesremain").innerHTML = guessesLeft;
+
+    if (randomWord.includes(userGuess)) {
+        for (var j = 0; j < randomWord.length; j++) {
+            if (randomWord[j] === userGuess) {
+                updateanswerBlanks(userGuess, j);
+            }
         }
     }
-
-
-    if (!answerBlanks.includes("_")) {
-        wins++;
-        document.getElementById("wins").innerHTML = wins;
-        console.log("You WIN!");
+    else {
+        guessesMade.push(userGuess);
+        document.getElementById("lettersguessed").innerHTML = guessesMade;
+        guessesLeft--;
+        document.getElementById("guessesremain").innerHTML = guessesLeft;
     }
 
 
-    if (guessesLeft === 0) {
-        losses++;
-        document.getElementById("losses").innerHTML = losses;
-        console.log("You LOSE!");
-        reset()
-    }
+// user wins
+if (!answerBlanks.includes(" _ ")) {
+    wins++;
+    document.getElementById("wins").innerHTML = wins;
+    console.log("You WIN!");
+    reset()
+}
+
+//user loses
+if (guessesLeft === 0) {
+    losses++;
+    document.getElementById("losses").innerHTML = losses;
+    console.log("You LOSE!");
+    reset()
+}
 }
 
 
